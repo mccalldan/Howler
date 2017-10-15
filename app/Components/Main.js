@@ -1,5 +1,4 @@
 var axios = require('axios');
-
 // Include React 
 var React = require('react');
 
@@ -7,6 +6,7 @@ var React = require('react');
 var Form = require('./Children/Form');
 var Results = require('./Children/Results');
 var Saved = require('./Children/Saved');
+var NewUser = require('./Children/NewUser');
 
 // Helper Function
 var helpers = require('./utils/helpers.js');
@@ -27,11 +27,12 @@ var Main = React.createClass({
 	},	
 
 	// We use this function to allow children to update the parent with searchTerms.
-	setTerm: function(tpc, stYr, endYr){
+	setTerm: function(fname, lname, uname, mail){
 		this.setState({
-			topic: tpc,
-			startYear: stYr,
-			endYear: endYr
+			lastName: fname,
+			firstName: lname,
+			username: uname,
+			email: mail
 		})
 	},
 
@@ -68,7 +69,7 @@ var Main = React.createClass({
 		if(prevState.topic != this.state.topic){
 			console.log("UPDATED");
 
-			helpers.runQuery(this.state.topic, this.state.startYear, this.state.endYear)
+			helpers.runQuery(this.state.firstName, this.state.lastName, this.state.username, this.state.email)
 				.then(function(data){
 					console.log(data);
 					if (data != this.state.results)
